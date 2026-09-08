@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS runs (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  created_at TEXT NOT NULL,
+  mode TEXT NOT NULL,
+  vendor TEXT NOT NULL,
+  model TEXT NOT NULL,
+  latency_ms INTEGER NOT NULL,
+  price_usd REAL
+);
