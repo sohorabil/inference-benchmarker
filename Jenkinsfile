@@ -1,6 +1,10 @@
 pipeline {
   agent any
 
+  environment {
+    CLOUDFLARE_API_TOKEN = credentials('cloudflare-api-token')
+  }
+
   stages {
     stage('Install dependencies') {
       steps {
@@ -12,14 +16,20 @@ pipeline {
         sh 'npx tsc --noEmit'
       }
     }
+    stage('Deploy to staging') {
+      when { branch 'staging' }
+      steps {
+        sh 'npx wrangler deploy --env staging'
+      }
+    }
   }
 
   post {
     success {
-      echo 'dev checks passed — safe to promote to staging'
+      echo 'Checks passed (and deployed to staging, if on that branch)'
     }
     failure {
-      echo 'dev checks failed — do not promote'
+      echo 'Pipeline failed — nothing was deployed'
     }
   }
 }
