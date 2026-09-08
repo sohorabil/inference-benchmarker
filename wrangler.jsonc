@@ -28,5 +28,20 @@
       "binding": "HYPERDRIVE",
       "id": "36d914db8efc45cfb813edba392c7af1"
     }
-  ]
+  ],
+  "env": {
+    "staging": {
+      "name": "inference-benchmarker-staging",
+      "ai": { "binding": "AI" },
+      "r2_buckets": [
+        { "bucket_name": "bench-images", "binding": "IMAGES" }
+      ],
+      "d1_databases": [
+        { "binding": "DB", "database_name": "bench-db", "database_id": "a70e0a90-e8b8-4401-b5a8-ac29029a0d01" }
+      ],
+      "hyperdrive": [
+        { "binding": "HYPERDRIVE", "id": "36d914db8efc45cfb813edba392c7af1" }
+      ]
+    }
+  }
 }
