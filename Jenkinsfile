@@ -22,11 +22,17 @@ pipeline {
         sh 'npx wrangler deploy --env staging'
       }
     }
+    stage('Deploy to production') {
+      when { branch 'main' }
+      steps {
+        sh 'npx wrangler deploy'
+      }
+    }
   }
 
   post {
     success {
-      echo 'Checks passed (and deployed to staging, if on that branch)'
+      echo 'Checks passed (and deployed, if on staging or main)'
     }
     failure {
       echo 'Pipeline failed — nothing was deployed'
