@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    CLOUDFLARE_API_TOKEN = credentials('cloudflare-api-token')
+    CLOUDFLARE_API_TOKEN = credentials('cloudflare-api-token-bechhmark')
   }
 
   stages {
