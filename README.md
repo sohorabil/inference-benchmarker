@@ -19,6 +19,19 @@ marketing.
 The headline finding: a single 6-second video costs roughly **120×** an image and
 **21,000×** a text call, on the vendors tested. Full analysis in [REPORT.md](REPORT.md).
 
+## Results at a glance
+
+| Mode | Best pick | Avg latency | Cost per 1,000 requests |
+|---|---|---|---|
+| Text | Workers AI (Llama 3.2 1B) | ~1.0 s | ~$0.02 |
+| Image — fastest | fal.ai (fast-sdxl) | ~3.1 s | ~$3.00 |
+| Image — cheapest | Runware | ~3.5 s | ~$2.70 |
+| Video (6 s clip) | fal.ai | ~64 s | ~$362.50 |
+
+Measured from stored runs with one fixed prompt per mode, not vendor marketing. Sample sizes are small; see the caveats in [REPORT.md](REPORT.md).
+
+**Recommendation:** pick the vendor per use case — fal.ai where a user is waiting on an image, Runware for bulk image jobs, Workers AI as the zero-setup text default — and treat video as a budget decision, not a feature toggle.
+
 ---
 
 ## Vendors compared
@@ -131,3 +144,9 @@ resolved several real problems — Hyperdrive query caching hiding fresh writes,
 SRV connection format not working on Workers, a replica-set primary/secondary write
 conflict, a vendor model that never completed within the wait window. Each was diagnosed
 with evidence and either fixed or documented honestly in [REPORT.md](REPORT.md).
+
+---
+
+## How I built this
+
+I defined the business question (latency and cost at volume), designed the architecture and the 7-part build plan, and directed the implementation with Claude Code. I reviewed and tested every change, deployed each part through the dev → staging → main Jenkins pipeline, and verified it live before moving on. The bugs listed above were real; I diagnosed each one from logs and stored data before fixing or documenting it.
